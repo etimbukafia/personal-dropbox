@@ -1,0 +1,25 @@
+<!-- index.html -->
+
+<body>
+    <div class="container">
+        <h1>File Upload</h1>
+        <form id='form'>
+            <div class="input-group">
+                <label for='bookmark-name'>Bookmark Name</label>
+                <input name='bookmark-name' id='bookmark-name' type='text'
+                    placeholder="Enter a unique name for your bookmark" required />
+            </div>
+            <div class="input-group">
+                <label for='files'>Select files</label>
+                <input id='files' name='files' type="file" multiple required accept="image/*, video/*">
+            </div>
+            <div class="input-group">
+                <label for='description'>Bookmark Description</label>
+                <textarea name='description' id='description' placeholder="Enter description for your bookmark"
+                    required></textarea>
+            </div>
+            <button class="submit-btn" type='submit'>Upload</button>
+        </form>
+    </div>
+    <script src='./script.ts'></script>
+</body>

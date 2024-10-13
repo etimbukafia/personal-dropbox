@@ -1,0 +1,76 @@
+/* style.css */
+body {
+    background-color: rgb(6, 26, 27);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 500px;
+    margin: 60px auto;
+}
+
+.container h1 {
+    text-align: center;
+    color: white;
+}
+
+form {
+    background-color: white;
+    padding: 30px;
+}
+
+form .input-group {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input {
+    /* adding a focus style to inputs to improve accessibility and make it clear which field the user is interacting with */
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+form input:focus,
+textarea:focus {
+    outline: none;
+    border-color: rgb(37, 83, 3);
+    /* Matches the submit button color */
+    box-shadow: 0 0 5px rgba(37, 83, 3, 0.5);
+    /* Subtle glow */
+}
+
+form textarea {
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+    resize: vertical;
+    /* Allows resizing vertically only */
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    background: rgb(37, 83, 3);
+    font-size: 18px;
+    color: white;
+    border-radius: 3px;
+    padding: 20px;
+    text-align: center;
+}
+
+.submit-btn:hover {
+    background-color: rgb(29, 65, 2);
+    /* Darker shade on hover */
+    cursor: pointer;
+    /* Shows pointer cursor on hover */
+}

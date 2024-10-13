@@ -1,0 +1,8 @@
+{
+    "_comment": "Configuration file for nodemon. This file lets me specify directories and extensions to watch and define commands to execute, while nodemon manages the reloading of the application upon changes.",
+    "watch": [
+        "src"
+    ],
+    "ext": "ts",
+    "exec": "concurrently \"npx tsc --watch\" \"ts-node src/index.ts\""
+}
