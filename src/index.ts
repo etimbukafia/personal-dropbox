@@ -6,15 +6,18 @@ import mongoose from 'mongoose';
 import Grid from 'gridfs-stream';
 import config from 'config';
 import { Readable } from 'stream';
-import connectToDB from './connect.js';
+import dotenv from 'dotenv';
+import { error } from 'console';
+
+dotenv.config()
 
 // VARIABLES
 //const upload: Multer = multer({ storage: storage });  // multer for file storage
 const app: Express = express();
-connectToDB()
-const port = process.env.port || 4000;
+const port = process.env.PORT || 4000;
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+const connectionString = process.env.MONGO_URI;
 
 // APP METHODS
 app.use(express.json());
@@ -23,19 +26,22 @@ app.use(express.urlencoded({ extended: true })); // middleware function in Expre
 app.set("view engine", "ejs"); // Template engine to generate HTML dynamically using templates
 //ROUTES
 
-let connection = mongoose.connection;
 // code for uploading files
 // upload.single(‘file’): This middleware from multer handles single file uploads named “file” in the request
 
-connection.on("open", () => {
-    console.log("connection established successfully");
-    // Check if mongoose.connection.db is defined
-    if (mongoose.connection.db) {
-        let bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
-    } else {
-        console.error("Database connection is not established");
-    }
-});
+if (!connectionString) {
+    throw new Error("MONGO_URI environment variable is not defined");
+}
+mongoose.connect(connectionString)
+    .then(() => {
+        app.listen(port, () => {
+            console.log('RUNNING ON PORT 4000')
+        })
+    })
+    .catch((error) => {
+        console.log("Failed to connect to MongoDB", error)
+    })
+
 
 const uploadFiles = (req: Request, res: Response) => {
     try {
