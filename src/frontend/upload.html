@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Upload to Backend</title>
+</head>
+
+<body>
+    <h1>Upload File</h1>
+    <form id="upload-form">
+        <input type="file" id="file-input" name="file" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="upload-status"></div>
+
+    <script>
+        // Handle the form submission
+        document.getElementById('upload-form').addEventListener('submit', async function (event) {
+            event.preventDefault();  // Prevent the default form submission
+
+            const fileInput = document.getElementById('file-input');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);  // Append the selected file
+
+            try {
+                // Send the file to your backend (replace '/upload' with your backend endpoint)
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Handle the response from your backend
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById('upload-status').innerText = 'Upload successful: ' + result.secure_url;
+                } else {
+                    document.getElementById('upload-status').innerText = 'Upload failed: ' + result.error;
+                }
+            } catch (error) {
+                document.getElementById('upload-status').innerText = 'Error uploading file: ' + error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>

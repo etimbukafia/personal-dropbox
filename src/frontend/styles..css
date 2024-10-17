@@ -1,0 +1,68 @@
+/* Basic reset for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Centering the form */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#upload-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the file input */
+input[type="file"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Styling the button */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Status message styling */
+#upload-status {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.success {
+    color: #28a745;
+    /* Green for success */
+}
+
+.error {
+    color: #dc3545;
+    /* Red for errors */
+}

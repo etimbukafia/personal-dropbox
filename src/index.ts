@@ -9,6 +9,7 @@ import { Readable } from 'stream';
 import dotenv from 'dotenv';
 import { error } from 'console';
 
+
 dotenv.config()
 
 // VARIABLES
@@ -16,7 +17,7 @@ dotenv.config()
 const app: Express = express();
 const port = process.env.PORT || 4000;
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({ storage: multer.memoryStorage() });   // Use memory storage to handle the file in-memory
 const connectionString = process.env.MONGO_URI;
 
 // APP METHODS
@@ -50,6 +51,8 @@ const uploadFiles = (req: Request, res: Response) => {
         res.status(500).json({ error: error })
     }
 };
+
+
 
 app.post('/upload_files', uploadFiles);
 
