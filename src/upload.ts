@@ -1,10 +1,8 @@
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 import { Readable } from 'stream';
-import { Stream } from 'stream';
-import multer from 'multer';
 
-dotenv.config;
+dotenv.config();
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -17,6 +15,7 @@ const uploadToCloudinary = (fileStream: Readable): Promise<any> => {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
             if (error) {
+                console.error("Cloudinary upload error:", error);
                 return reject(error); //reject the promise if there's an error
             }
             resolve(result); //Resolve the promise with a result

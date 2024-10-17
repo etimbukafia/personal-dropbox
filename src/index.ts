@@ -4,7 +4,7 @@ import cors from 'cors';
 import multer from 'multer';
 import dotenv from 'dotenv';
 import uploadToCloudinary from './upload.js';
-
+import mongoose from 'mongoose';
 
 dotenv.config()
 
@@ -20,6 +20,21 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true })); // middleware function in Express.js that parses incoming requests with URL-encoded payloads. This is to handle form submissions
 app.set("view engine", "ejs"); // Template engine to generate HTML dynamically using templates
 
+// connect to db
+
+if (!connectionString) {
+    throw new Error("MONGO_URI environment variable is not defined");
+}
+
+mongoose.connect(connectionString)
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log("Connected to mongo db atlas")
+        })
+    })
+    .catch((error) => {
+        console.error("Error connecting to MongoDb Atlas:", error)
+    })
 
 app.post('/upload_files', upload.single('file'), async (req: Request, res: Response): Promise<void> => {
     try {
