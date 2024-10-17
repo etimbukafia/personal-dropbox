@@ -12,7 +12,6 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 });
 
-
 // Cloudinary upload constant
 const uploadToCloudinary = (fileStream: Readable): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -27,3 +26,5 @@ const uploadToCloudinary = (fileStream: Readable): Promise<any> => {
         fileStream.pipe(uploadStream);
     });
 };
+
+export default uploadToCloudinary;
