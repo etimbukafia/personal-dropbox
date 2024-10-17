@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary, UploadStream } from 'cloudinary';
 import dotenv from 'dotenv';
 import { Readable } from 'stream';
 
@@ -11,18 +11,22 @@ cloudinary.config({
 });
 
 // Cloudinary upload constant
-const uploadToCloudinary = (fileStream: Readable): Promise<any> => {
+const uploadToCloudinary = (fileBuffer: Buffer, folder: string, displayName: string): Promise<any> => {
     return new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
-            if (error) {
-                console.error("Cloudinary upload error:", error);
-                return reject(error); //reject the promise if there's an error
-            }
-            resolve(result); //Resolve the promise with a result
-        });
+        const base64Data = fileBuffer.toString('base64');
+        const dataURI = `data:image/avif;base64,${base64Data}`; // Change the MIME type based on your file type
 
-        // Pipe the filestream to cloudinary
-        fileStream.pipe(uploadStream);
+        cloudinary.uploader.upload(
+            dataURI,
+            { folder, public_id: displayName, resource_type: 'auto' },
+            (error, result) => {
+                if (error) {
+                    console.error("Cloudinary upload error:", error);
+                    return reject(error); //reject the promise if there's an error
+                }
+                resolve(result); //Resolve the promise with a result
+            }
+        );
     });
 };
 

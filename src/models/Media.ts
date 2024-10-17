@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-const schema = mongoose.schema;
-
-const mediaSchema = new schema({
+const mediaSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -13,7 +12,12 @@ const mediaSchema = new schema({
     cloudinaryLink: {
         type: String,
         required: true
+    },
+    assetId: {
+        type: String,
+        required: true
     }
 }, { timestamps: true })
 
-module.exports = mongoose.model('media', mediaSchema)
+const Media = mongoose.model('Media', mediaSchema);
+export default Media;
